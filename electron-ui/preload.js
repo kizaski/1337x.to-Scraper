@@ -5,6 +5,12 @@
  * 
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
+
+// Import the necessary Electron components.
+const contextBridge = require('electron').contextBridge;
+const ipcRenderer = require('electron').ipcRenderer;
+
+
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
@@ -14,4 +20,9 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const type of ['chrome', 'node', 'electron']) {
     replaceText(`${type}-version`, process.versions[type])
   }
+})
+
+
+contextBridge.exposeInMainWorld('electronAPI', {
+  getTorrents: (search) => ipcRenderer.invoke('get-torrents', search)
 })

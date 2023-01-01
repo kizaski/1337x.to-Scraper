@@ -2,12 +2,23 @@ const { chromium } = require('playwright-chromium');
 const fs = require("fs");
 const path = require( 'path' );
 
-(async () => {
-    let search = '';
-    for (let i = 2; i < process.argv.length; i++) {
-        search += process.argv[i] + ' ';
-    }
-    search = search.trim();
+if (require.main === module) {
+    console.log('called directly');
+    (async () => {
+    
+        let search = '';
+        for (let i = 2; i < process.argv.length; i++) {
+            search += process.argv[i] + ' ';
+        }
+        search = search.trim();
+    
+        await scrape(search)
+    
+    })();
+} 
+
+async function scrape(search) {
+    console.log(`scraping for search: ${search}`)
 
     let browser = await chromium.launch({ slowMo: 150 });
     let page = await browser.newPage();
@@ -90,4 +101,8 @@ const path = require( 'path' );
     });
 
     await browser.close();
-})();
+
+    return JSON.stringify(torrents)
+}
+
+module.exports = { scrape }
