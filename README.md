@@ -7,7 +7,7 @@ npm install
 node .\script.js Breaking Bad
 ```
 
-Output is a torrents.json file in the same dir as script.js
+Output is json in scraped/
 
 Electron ui can be started with 
 ```
