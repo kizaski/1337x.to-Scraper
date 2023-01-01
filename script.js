@@ -1,5 +1,6 @@
 const { chromium } = require('playwright-chromium');
 const fs = require("fs");
+const path = require( 'path' );
 
 (async () => {
     let search = '';
@@ -72,9 +73,20 @@ const fs = require("fs");
         }
     }
 
-    fs.writeFile('torrents.json', JSON.stringify(torrents), 'utf8', function (err) {
+    let timenow = new Date()
+
+    var dir = './scraped'
+    var filename = `torrents-${timenow.getMonth()+1}-${timenow.getDate()}-${timenow.getMilliseconds()}.json`
+
+    if ( !fs.existsSync( dir ) )
+    {
+        fs.mkdirSync( dir )
+    }
+
+    fs.writeFile(path.join(dir,filename), JSON.stringify(torrents), 'utf8', function (err) {
         if (err) throw err;
         console.log('complete');
+        console.log(`saved at ${path.join(dir,filename)}`);
     });
 
     await browser.close();
