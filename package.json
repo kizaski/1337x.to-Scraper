@@ -1,5 +1,12 @@
 {
+  "name": "1337x-scraper",
+  "version": "1.0.0",
+  "description": "",
   "dependencies": {
-    "playwright-chromium": "^1.29.1"
+    "playwright-chromium": "^1.29.1",
+    "electron": "^22.0.0"
+  },
+  "scripts": {
+    "ui": "electron ./electron-ui/main.js"
   }
 }
