@@ -102,7 +102,7 @@ async function scrape(search) {
 
     await browser.close();
 
-    return JSON.stringify(torrents)
+    return torrents
 }
 
 module.exports = { scrape }
